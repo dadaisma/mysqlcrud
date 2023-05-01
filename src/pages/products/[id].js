@@ -48,7 +48,7 @@ const ProductPage= ({ product }) => {
 
 export const getServerSideProps = async (context) => {
   const { data: product } = await axios.get(
-    "https://mysqlcrud.vercel.app/api/products" + context.query.id
+    "https://mysqlcrud.vercel.app/api/products" + query.id
   );
 
   return {
