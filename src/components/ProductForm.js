@@ -49,7 +49,7 @@ const  ProductForm = () => {
       if(router.query?.id){
         getProduct(router.query.id)
       }
-    },[])
+    },[router.query.id])
 
 
     return (
