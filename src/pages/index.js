@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
-import Link from "next/link"
+//import Link from "next/link"
 import ProductCard from "@/components/ProductCard";
+import { Analytics } from '@vercel/analytics/react';
 
 import axios from "axios";
 
@@ -23,13 +24,14 @@ const renderProducts = () =>{
 
   
     </Layout>
+    <Analytics />
     </>
   )
 }
 
 export const  getServerSideProps = async (context) => {
  
-const {data:products} = await  axios.get(`${process.env.SITEURL}/api/products`)
+const {data:products} = await  axios.get(`${process.env.NEXT_PUBLIC_SITEURL}/api/products`)
 
   return{
     props:

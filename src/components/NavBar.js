@@ -14,7 +14,7 @@ const NavBar = () => {
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <Link href="/" className="flex items-center">
      
-        <img src="/img/logosqlcrud.png" className="h-8 mr-3" alt="MySqlLogo" />
+        <img src="https://res.cloudinary.com/dkqlgumn7/image/upload/v1682976778/logosqlcrud_ncoghu.png" className="h-8 mr-3" alt="MySqlLogo" />
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MySQL CRUD</span>
     
     </Link>
