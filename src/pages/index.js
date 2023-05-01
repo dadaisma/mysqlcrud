@@ -31,8 +31,8 @@ const renderProducts = () =>{
 
 export const  getServerSideProps = async (context) => {
  
-const {data:products} = await  axios.get(`${process.env.NEXT_PUBLIC_SITEURL}/api/products`)
-
+//const {data:products} = await  axios.get(`${process.env.NEXT_PUBLIC_SITEURL}/api/products`)
+const {data:products} = await  axios.get("https://mysqlcrud.vercel.app/api/products")
 
   return{
     props:
