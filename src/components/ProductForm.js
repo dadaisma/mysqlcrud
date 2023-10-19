@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
@@ -13,38 +13,72 @@ const  ProductForm = () => {
    })
 
    const router = useRouter();
-   console.log(router.query)
+   //console.log(router.query)
 
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
-       
-       try {
-        if (router.query.id){
-         // console.log("update")
-         await axios.put('/api/products/'+ router.query.id, product)
-         toast.success('Product updated successfully')
-        }else{
-        await axios.post('/api/products', product)
-        toast.success('Product created successfully')
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (router.query.id) {
+        // Update an existing product
+        const response = await fetch(`/api/products/${router.query.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(product),
+        });
+
+        if (response.ok) {
+          toast.success('Product updated successfully');
+        } else {
+          const data = await response.json();
+          toast.error(data.message);
+        }
+      } else {
+        // Create a new product
+        const response = await fetch('/api/products', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(product),
+        });
+
+        if (response.ok) {
+          toast.success('Product created successfully');
+        } else {
+          const data = await response.json();
+          toast.error(data.message);
+        }
       }
-        
-      setTimeout(()=>{
-        router.push("/");
-      },3000) 
-       } catch (error) {
-        toast.error(error.response.data.message)
-       }
+
+      setTimeout(() => {
+        router.push('/');
+      }, 3000);
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('An error occurred while processing your request');
     }
+  };
   
     const handleChange = ({target:{name, value}  })=>
        setProduct({...product, [name]: value })
     
-    useEffect(()=>{
-      const getProduct = async () => {
-        const {data} = await axios.get('/api/products/'+ router.query.id)
-        setProduct(data)
-        //console.log(data)
-      }
+       useEffect(() => {
+        const getProduct = async () => {
+          try {
+            const response = await fetch(`/api/products/${router.query.id}`);
+            if (response.ok) {
+              const data = await response.json();
+              setProduct(data);
+            } else {
+              console.error('Failed to fetch product data');
+            }
+          } catch (error) {
+            console.error('Error while fetching product data:', error);
+          }
+        };
  
       if(router.query?.id){
         getProduct(router.query.id)

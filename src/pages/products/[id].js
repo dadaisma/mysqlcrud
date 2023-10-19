@@ -46,9 +46,12 @@ const ProductPage= ({ product }) => {
   );
 };
 
+{/*  
 export const getServerSideProps = async (context) => {
   const { data: product } = await axios.get(
-    "https://mysqlcrud.vercel.app/api/products/" + context.query.id
+    
+    `${process.env.SITEURL}/api/products`  + context.query.id
+   // "https://mysqlcrud.vercel.app/api/products/" + context.query.id
   );
 
   return {
@@ -57,5 +60,39 @@ export const getServerSideProps = async (context) => {
     },
   };
 };
+*/}
+export const getServerSideProps = async (context) => {
+  try {
+    const response = await fetch(
+      `${process.env.SITEURL}/api/products/${context.query.id}`
+    );
+
+    if (response.ok) {
+      const product = await response.json();
+
+      return {
+        props: {
+          product,
+        },
+      };
+    } else {
+      console.error('Failed to fetch product data');
+      return {
+        props: {
+          product: {},
+        },
+      };
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return {
+      props: {
+        product: {},
+      },
+    };
+  }
+};
+
+
 
 export default ProductPage;

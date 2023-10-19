@@ -3,21 +3,25 @@ import Layout from "@/components/Layout";
 import ProductCard from "@/components/ProductCard";
 import { Analytics } from '@vercel/analytics/react';
 
-import axios from "axios";
 
 export default function Home({products}) {
-  console.log(products)
+  //console.log(products)
+  
 
 const renderProducts = () =>{
    if(products.length === 0) return <h1 className="text-center text-2xl font-bold">No Products yet!</h1>
   return products.map((product)=>(
-  <ProductCard key={product.id} product={product} />
+    <>
+    <div key={product._id} className="flex flex-col justify-center" >
+      <ProductCard product={product}/></div>
+ 
+  </>
 ))}
 
   return (
     <>
     <Layout>
-  <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+  <div className="flex flex-col w-full md:w-1/3 lg:w-1/4 mr-4 text-center">
 {renderProducts()}
    
   </div>
@@ -31,12 +35,40 @@ const renderProducts = () =>{
 
 
 export const  getServerSideProps = async (context) => {
- 
+ {/*  
 //const {data:products} = await  axios.get(`${process.env.NEXT_PUBLIC_SITEURL}/api/products`)
-const {data:products} = await  axios.get("https://mysqlcrud.vercel.app/api/products")
+//const {data:products} = await  axios.get("https://mysqlcrud.vercel.app/api/products")
+const {data:products} = await  axios.get(`${process.env.SITEURL}/api/products`)
 
   return{
     props:
     {products}
+  }
+  */}
+  try {
+    const response = await fetch(`${process.env.SITEURL}/api/products`);
+    if (response.ok) {
+      const products = await response.json();
+
+      return {
+        props: {
+          products
+        }
+      };
+    } else {
+      console.error('Failed to fetch products');
+      return {
+        props: {
+          products: []
+        }
+      };
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return {
+      props: {
+        products: []
+      }
+    };
   }
 }
