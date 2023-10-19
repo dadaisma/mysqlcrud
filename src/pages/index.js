@@ -12,7 +12,8 @@ const renderProducts = () =>{
    if(products.length === 0) return <h1 className="text-center text-2xl font-bold">No Products yet!</h1>
   return products.map((product)=>(
     <>
-    <div key={product._id}  className="flex justify-center"  >
+    <div key={product._id}  >
+      
       <ProductCard product={product}/></div>
  
   </>
@@ -21,7 +22,8 @@ const renderProducts = () =>{
   return (
     <>
     <Layout>
-  <div>
+    <div >
+    <div className="text-center mb-4 font-bold">Products List</div>
 {renderProducts()}
    
   </div>
