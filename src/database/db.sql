@@ -1,6 +1,6 @@
 
-CREATE DATABASE productsdb;
-use productsdb;
+CREATE DATABASE dadaisma;
+use dadaisma;
 
 CREATE TABLE product (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
