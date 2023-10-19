@@ -10,14 +10,16 @@ export default function Home({products}) {
 
 const renderProducts = () =>{
    if(products.length === 0) return <h1 className="text-center text-2xl font-bold">No Products yet!</h1>
-  return products.map((product)=>(
-    <>
-    <div key={product._id}  >
-      
-      <ProductCard product={product}/></div>
- 
-  </>
-))}
+   return (
+    <div className="flex flex-col-reverse">
+      {products.map((product) => (
+        <div key={product._id}>
+          <ProductCard product={product} />
+        </div>
+      ))}
+    </div>
+  );
+};
 
   return (
     <>
