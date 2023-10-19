@@ -8,8 +8,10 @@ import { useRouter } from 'next/router'
 
 const ProductCard = ({ product }) => {
   const router = useRouter();
-  
-  
+  const [showFullDescription, setShowFullDescription] = useState(false); 
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
 
 
   return (
@@ -17,7 +19,14 @@ const ProductCard = ({ product }) => {
       <div className='bg-gray-100'>
       <div className="bg-gray-300  shadow border-2 rounded grid grid-cols-1 md:grid-cols-4 justify-center text-center ml-10 mr-10  items-center ">
           <p className='font-bold text-xl'>{product.name}</p>
-          <p className='italic'>{product.description}</p>
+          <p className="italic">
+        {showFullDescription ? product.description : product.description.slice(0,45)}
+        {product.description.length > 45 && (
+          <button className="text-blue-500 text-xs" onClick={toggleDescription}>
+            {showFullDescription ? 'Read Less' : 'Read More'}
+          </button>
+        )}
+      </p>
           <p className=''>€ {product.price}</p>
           
           <div className="flex items-center justify-center mt-3 mb-3">

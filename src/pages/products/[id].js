@@ -27,21 +27,25 @@ const ProductPage= ({ product }) => {
 
   return (
     <Layout>
-      <h1 className='font-bold border border-black text-center  '>{product.name} </h1>
-      <p>{product.description}</p>
+      <div className="bg-gray-300  shadow border-2 rounded grid grid-cols-1 md:grid-cols-4 justify-center text-center ml-10 mr-10  items-center ">
+      <p className='font-bold text-xl'>{product.name} </p>
+      <p className='italic'>{product.description}</p>
       <p>€ {product.price}</p>
+      <div className="flex items-center justify-center mt-3 mb-3">
       <button
-        className="bg-red-500 text-white font-bold px-3 hover:bg-purple-500 rounded mt-4"
-        onClick={() => handleDelete(product.id)}
-      >
-        Delete
-      </button>
-      <button
-        className="bg-orange-500 text-white font-bold px-3 hover:bg-purple-500 ml-5 rounded mt-4"
+        className="bg-orange-500 text-white font-bold px-3 hover:bg-purple-500 mr-5 rounded "
         onClick={() =>  router.push("/products/edit/"+ product.id)}
       >
        Edit
       </button>
+      <button
+        className="bg-red-500 text-white font-bold px-3 hover:bg-purple-500 rounded "
+        onClick={() => handleDelete(product.id)}
+      >
+        Delete
+      </button>
+     
+      </div>  </div>
     </Layout>
   );
 };
